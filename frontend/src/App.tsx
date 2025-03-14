@@ -1,12 +1,16 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import AuthLayout from "./routes/auth/layout";
 import LoginPage from "./routes/auth/login";
 import RegisterPage from "./routes/auth/register";
 import WithAuth from "./components/withAuth";
 import DashboardLayout from "./routes/dashboard/layout";
 import HomePage from "./routes/home";
+import { setNavigate } from "./lib/navigation";
 
 function App() {
+  const navigate = useNavigate();
+  setNavigate(navigate);
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />

@@ -1,6 +1,7 @@
+import ProvidersFilters from "@/components/providersFilters";
 import ProvidersList from "@/components/providersList";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { ProvidersProvider } from "@/contexts/providers.provider";
 import { useTheme } from "@/contexts/theme.context";
 import useAuth from "@/hooks/useAuth";
 import { MoonIcon, SunIcon, ZapIcon } from "lucide-react";
@@ -44,61 +45,19 @@ const HomePage: FC = () => {
       </header>
       <main className="my-5">
         <div className="max-w-[1300px] flex gap-2 mx-auto rounded-lg overflow-hidden">
-          <aside className="bg-accent/50 dark:bg-accent/25 p-4 flex flex-col max-w-3xs">
-            <h1 className="text-2xl font-bold">Energy Providers</h1>
-            <p className="text-muted-foreground text-sm">
-              Here you can find a list of energy providers and their details.
-            </p>
+          <ProvidersProvider>
+            <aside className="bg-accent/50 dark:bg-accent/25 p-4 flex flex-col max-w-3xs">
+              <h1 className="text-2xl font-bold">Energy Providers</h1>
+              <p className="text-muted-foreground text-sm">
+                Here you can find a list of energy providers and their details.
+              </p>
 
-            <div className="mt-4">
-              <h2 className="text-lg font-bold">Filters</h2>
-              <div className="space-y-2 ">
-                <div>
-                  <p className="text-sm text-muted-foreground">Name</p>
-                  <div className="flex items-center gap-2">
-                    <Input type="number" className="" />
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Country</p>
-                  <div className="flex items-center gap-2">
-                    <Input type="number" className="" />
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Market share</p>
-                  <div className="flex items-center gap-2">
-                    <Input type="number" className="" />
-                    <span>-</span>
-                    <Input type="number" className="" />
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Renewable energy
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Input type="number" className="" />
-                    <span>-</span>
-                    <Input type="number" className="" />
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">
-                    Yearly revenue
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Input type="number" className="" />
-                    <span>-</span>
-                    <Input type="number" className="" />
-                  </div>
-                </div>
-              </div>
+              <ProvidersFilters />
+            </aside>
+            <div className="flex-1">
+              <ProvidersList />
             </div>
-          </aside>
-          <div className="flex-1">
-            <ProvidersList />
-          </div>
+          </ProvidersProvider>
         </div>
       </main>
     </div>

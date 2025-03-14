@@ -10,8 +10,11 @@ import authenticate from "./middleware/authenticate";
 import userRoutes from "./routes/user.route";
 import sessionRoutes from "./routes/session.route";
 import providerRoutes from "./routes/provider.route";
+import morgan from "morgan";
 
 const app = express();
+
+app.use(morgan(env.NODE_ENV === "development" ? "dev" : "combined"));
 
 app.use(json());
 app.use(urlencoded({ extended: true }));

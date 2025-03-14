@@ -12,7 +12,12 @@ export type User = {
 export type UserData = {
   user: User;
 };
-export const getUser = async () => api.get("/user") as Promise<UserData>;
+export const getUser = async (validate?: boolean) =>
+  api.get("/user", {
+    validateStatus(status) {
+      return validate ? status >= 200 && status < 300 : true;
+    },
+  }) as Promise<UserData>;
 
 export type Provider = {
   _id: string;
@@ -26,5 +31,17 @@ export type ProvidersData = {
   providers: Provider[];
   count: number;
 };
-export const getProviders = async () =>
-  api.get("/providers") as Promise<ProvidersData>;
+
+export type ProviderFilterValue = string | { from: number; to: number };
+export type ProviderFilters = {
+  name?: string;
+  country?: string;
+  marketShare?: { from?: number; to?: number };
+  renewableEnergyPercentage?: { from?: number; to?: number };
+  yearlyRevenue?: { from?: number; to?: number };
+};
+
+export const getProviders = async (filters?: ProviderFilters) =>
+  api.get("/providers", {
+    params: { filters },
+  }) as Promise<ProvidersData>;

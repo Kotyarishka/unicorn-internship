@@ -16,9 +16,11 @@ import { Input } from "@/components/ui/input";
 import { LoginInput, loginSchema } from "@/validators/auth";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/lib/api";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const LoginPage: FC = () => {
+  const location = useLocation();
+  const redirectUrl = (location.state?.redirectUrl || "/") as string;
   const navigate = useNavigate();
 
   const form = useForm<LoginInput>({
@@ -36,7 +38,7 @@ const LoginPage: FC = () => {
   } = useMutation({
     mutationFn: login,
     onSuccess: () => {
-      navigate("/", {
+      navigate(redirectUrl, {
         replace: true,
       });
     },

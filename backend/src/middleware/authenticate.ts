@@ -45,7 +45,7 @@ const handleDefaultAuth = async (
     accessToken,
     HttpStatusCode.UNAUTHORIZED,
     "Not authorized",
-    AppErrorCode.NoTokenProvided
+    AppErrorCode.InvalidAccessToken
   );
 
   const { payload, error } = verifyToken(accessToken);
@@ -71,7 +71,7 @@ const authenticateUserScope = async (
     accessToken,
     HttpStatusCode.UNAUTHORIZED,
     "Not authorized",
-    AppErrorCode.NoTokenProvided
+    AppErrorCode.InvalidAccessToken
   );
 
   const { payload, error } = verifyToken(accessToken);

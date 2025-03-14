@@ -1,10 +1,10 @@
 import { getUser, UserData } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 
-const useAuth = () => {
+const useAuth = (validate: boolean = false) => {
   const { data, ...rest } = useQuery<UserData>({
     queryKey: ["auth"],
-    queryFn: getUser,
+    queryFn: () => getUser(validate),
     staleTime: Infinity,
   });
 

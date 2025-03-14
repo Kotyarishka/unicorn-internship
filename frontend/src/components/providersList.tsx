@@ -1,5 +1,4 @@
-import { getProviders } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
+import { useProviders } from "@/contexts/providers.context";
 import { LeafIcon, LoaderPinwheelIcon } from "lucide-react";
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -12,10 +11,7 @@ import {
 } from "./ui/tooltip";
 
 const ProvidersList: FC = () => {
-  const { data, error, isLoading, isError } = useQuery({
-    queryKey: ["providers"],
-    queryFn: getProviders,
-  });
+  const { providers, error, isLoading, isError } = useProviders();
 
   if (isLoading) {
     return (
@@ -28,7 +24,7 @@ const ProvidersList: FC = () => {
   if (isError) {
     return (
       <div className="w-full h-full flex items-center justify-center min-h-20 bg-red-400/5 rounded-lg">
-        {error.message || "An error occurred. Try again later."}
+        {error?.message || "An error occurred. Try again later."}
       </div>
     );
   }
@@ -36,7 +32,7 @@ const ProvidersList: FC = () => {
   return (
     <TooltipProvider>
       <div className="space-y-2">
-        {data?.providers.map((provider) => (
+        {providers?.map((provider) => (
           <div
             key={provider._id}
             className="bg-accent/50 dark:bg-accent/25 p-2 space-y-5"
