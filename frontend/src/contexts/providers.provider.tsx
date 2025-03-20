@@ -2,7 +2,6 @@ import { getProviders, ProviderFilters, ProviderFilterValue } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { ProvidersContext } from "./providers.context";
-import { useSearchParams } from "react-router-dom";
 
 const updateNestedFilter = (
   filters: ProviderFilters,
@@ -41,6 +40,7 @@ export function ProvidersProvider({ children }: PropsWithChildren) {
     marketShare: { from: 0, to: 100 },
     renewableEnergyPercentage: { from: 0, to: 100 },
   });
+  const [countries, setCountries] = useState<string[]>([]);
   const {
     data: providers,
     isLoading,
@@ -78,6 +78,26 @@ export function ProvidersProvider({ children }: PropsWithChildren) {
     }));
   }, [providers, bounds]);
 
+  useEffect(() => {
+    if (!providers) return;
+
+    // calculate countries, add country to list if not already there, withouth removing the ones that are already there, withouth duplicates
+    const newCountries = providers.providers.reduce<string[]>(
+      (acc, provider) => {
+        if (!acc.includes(provider.country)) {
+          acc.push(provider.country);
+        }
+        return acc;
+      },
+      []
+    );
+
+    setCountries((prevCountries) => [
+      ...prevCountries,
+      ...newCountries.filter((country) => !prevCountries.includes(country)),
+    ]);
+  }, [providers]);
+
   return (
     <ProvidersContext.Provider
       value={{
@@ -86,6 +106,7 @@ export function ProvidersProvider({ children }: PropsWithChildren) {
         setFilters,
         updateFilter,
         providers: providers?.providers ?? [],
+        countries,
         isLoading,
         isError,
         error,

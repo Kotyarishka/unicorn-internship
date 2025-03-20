@@ -9,8 +9,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import DeleteProviderButton from "./providerDelete";
 
-const ProvidersList: FC = () => {
+interface ProvidersListProps {
+  dashboard?: boolean;
+}
+
+const ProvidersList: FC<ProvidersListProps> = ({ dashboard = false }) => {
   const { providers, error, isLoading, isError } = useProviders();
 
   if (isLoading) {
@@ -56,13 +61,30 @@ const ProvidersList: FC = () => {
                 ) : null}
                 <h2 className="text-lg font-bold">{provider.name}</h2>
               </div>
-              <div>
+              <div className="flex items-center gap-2">
                 <Link
-                  to={`/providers/${provider._id}`}
+                  to={
+                    dashboard ? `${provider._id}` : `/providers/${provider._id}`
+                  }
                   className={buttonVariants({ variant: "ghost", size: "sm" })}
                 >
                   View
                 </Link>
+
+                {dashboard && (
+                  <>
+                    <Link
+                      to={`${provider._id}/edit`}
+                      className={buttonVariants({
+                        variant: "ghost",
+                        size: "sm",
+                      })}
+                    >
+                      Edit
+                    </Link>
+                    <DeleteProviderButton provider={provider} size="sm" />
+                  </>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-2 grid-rows-2 rounded-lg gap-2 overflow-hidden">

@@ -10,6 +10,7 @@ interface ProvidersContext {
 
   // Providers stuff
   providers: Provider[];
+  countries: string[];
 
   // Query stuff
   isLoading: boolean;

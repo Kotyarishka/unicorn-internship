@@ -1,8 +1,20 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Input } from "./ui/input";
 import useProviderSearch from "@/hooks/useProviderSearch";
 import { useProviders } from "@/contexts/providers.context";
 import { Slider } from "./ui/slider";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "./ui/command";
+import { Check, XIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type Range = {
   from?: number;
@@ -20,25 +32,82 @@ const ProvidersFilters: FC = () => {
   const [yearlyRevenueSearch, setYearlyRevenueSearch] =
     useProviderSearch<Range>("yearlyRevenue");
 
-  const { bounds } = useProviders();
+  const [countryOpen, setCountryOpen] = useState(false);
+
+  const { bounds, countries } = useProviders();
 
   return (
-    <div className="mt-5">
+    <div className="">
       <h2 className="text-lg font-bold mb-2">Filters</h2>
       <div className="space-y-2">
         <div>
           <p className="text-sm text-muted-foreground">Name</p>
           <Input
             value={nameSearch}
+            placeholder="Search by company name..."
             onChange={(e) => setNameSearch(e.target.value)}
           />
         </div>
         <div>
           <p className="text-sm text-muted-foreground">Country</p>
-          <Input
-            value={countrySearch}
-            onChange={(e) => setCountrySearch(e.target.value)}
-          />
+          <div className="flex gap-1">
+            <Popover open={countryOpen} onOpenChange={setCountryOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  className="flex-1 text"
+                  variant="input"
+                  role="combobox"
+                  aria-expanded={countryOpen}
+                >
+                  <span
+                    className={cn({
+                      "text-muted-foreground": !countrySearch,
+                    })}
+                  >
+                    {countrySearch || "Search by country..."}
+                  </span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full">
+                <Command>
+                  <CommandInput placeholder="Search country..." />
+                  <CommandList>
+                    <CommandEmpty>No countries found.</CommandEmpty>
+                    <CommandGroup>
+                      {countries.map((country) => (
+                        <CommandItem
+                          key={country}
+                          value={country}
+                          onSelect={(val) => {
+                            setCountrySearch(val);
+                            setCountryOpen(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              countrySearch === country
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {country}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={() => setCountrySearch("")}
+              disabled={!countrySearch}
+            >
+              <XIcon />
+            </Button>
+          </div>
         </div>
         <div>
           <p className="text-sm text-muted-foreground">Market share</p>
