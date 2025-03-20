@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { LoginInput, loginSchema } from "@/validators/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login } from "@/lib/api";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -22,6 +22,7 @@ const LoginPage: FC = () => {
   const location = useLocation();
   const redirectUrl = (location.state?.redirectUrl || "/") as string;
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -38,6 +39,10 @@ const LoginPage: FC = () => {
   } = useMutation({
     mutationFn: login,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["auth"],
+      });
+
       navigate(redirectUrl, {
         replace: true,
       });

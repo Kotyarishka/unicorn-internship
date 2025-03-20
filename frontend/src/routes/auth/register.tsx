@@ -16,11 +16,12 @@ import { Input } from "@/components/ui/input";
 
 import { register } from "@/lib/api";
 import { RegisterInput, registerSchema } from "@/validators/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage: FC = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [matchingPasswords, setMatchingPasswords] = useState(true);
 
   const form = useForm<RegisterInput>({
@@ -51,6 +52,10 @@ const RegisterPage: FC = () => {
   } = useMutation({
     mutationFn: register,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["auth"],
+      });
+
       navigate("/", {
         replace: true,
       });

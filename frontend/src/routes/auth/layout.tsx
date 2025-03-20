@@ -1,11 +1,16 @@
-import { FC } from "react";
+import useAuth from "@/hooks/useAuth";
 import { ZapIcon } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
-import { useTheme } from "@/contexts/theme.context";
-import { Button } from "@/components/ui/button";
+import { FC } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const AuthLayout: FC = () => {
-  const { theme, setTheme } = useTheme();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate("/dashboard", { replace: true });
+  }
+
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
@@ -16,10 +21,6 @@ const AuthLayout: FC = () => {
             </div>
             WattWise
           </Link>
-
-          <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            Boom
-          </Button>
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
