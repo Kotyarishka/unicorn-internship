@@ -1,22 +1,17 @@
 import { Request } from "express";
-import { UserDocument } from "src/models/user.model";
+import { TokenDocument } from "src/models/token.model";
+import { UserDocument, UserModel } from "src/models/user.model";
 import appAssert from "./appAssert";
 import HttpStatusCode from "src/constans/http";
-import AppErrorCode from "src/constans/appErrorCode";
-import { verifyToken } from "./jwt";
-import AppError from "./appError";
 
 type UserPayload = {
   user: Omit<UserDocument, "password">;
 };
 type TokenPayload = {
-  token: string;
+  token: TokenDocument;
 };
 
-type PermissionHandler<TPayload> = (
-  req: Request,
-  payload: TPayload
-) => boolean | Promise<boolean>;
+type PermissionHandler<TPayload> = (req: Request, payload: TPayload) => any;
 
 const createUserScopeHandlers = <
   T extends Record<string, PermissionHandler<UserPayload>>
@@ -30,13 +25,32 @@ const createTokenScopeHandlers = <
 ): T => handlers;
 
 export const userScopeHandlers = createUserScopeHandlers({
-  hasMagic: async (req, payload) => req.query.magic === "magic",
+  default: async (req, payload) => true, // default handler, this will always be executed if there empty array of scopes
+  hasMagic: async (req, payload) =>
+    appAssert(
+      req.query.magic === "magic",
+      HttpStatusCode.BAD_REQUEST,
+      "Magic is not correct"
+    ),
 });
 export type UserScope = keyof typeof userScopeHandlers;
 
 export const tokenScopeHandlers = createTokenScopeHandlers({
-  isAccessToken: async (req, payload) => true,
-  isRefreshToken: async (req, payload) => true,
+  default: async (req, { token }) => {
+    const user = await UserModel.findById(token.userId);
+    appAssert(
+      user,
+      HttpStatusCode.NOT_FOUND,
+      "User that owns the token not found"
+    );
+
+    // check if token is expired
+    appAssert(
+      token.expiresAt.getTime() > Date.now(),
+      HttpStatusCode.UNAUTHORIZED,
+      "Token expired"
+    );
+  },
 });
 export type TokenScope = keyof typeof tokenScopeHandlers;
 

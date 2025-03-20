@@ -10,6 +10,7 @@ import authenticate from "./middleware/authenticate";
 import userRoutes from "./routes/user.route";
 import sessionRoutes from "./routes/session.route";
 import providerRoutes from "./routes/provider.route";
+import tokenRoutes from "./routes/token.route";
 import morgan from "morgan";
 
 const app = express();
@@ -34,6 +35,7 @@ app.use("/auth", authRoutes);
 app.use("/user", authenticate(), userRoutes);
 app.use("/sessions", authenticate(), sessionRoutes);
 app.use("/providers", providerRoutes);
+app.use("/tokens", authenticate(), tokenRoutes);
 
 // @ts-expect-error I'm not battling with exress one more time. Enough is enough
 app.use(errorHandler);

@@ -13,8 +13,29 @@ const providerRoutes = Router();
 
 providerRoutes.get("/", getProvidersHandler);
 providerRoutes.get("/:id", getProviderHandler);
-providerRoutes.post("/", authenticate(), createProviderHandler);
-providerRoutes.put("/:id", authenticate(), updateProviderHandler);
-providerRoutes.delete("/:id", authenticate(), deleteProviderHandler);
+providerRoutes.post(
+  "/",
+  authenticate({
+    user: [],
+    token: [],
+  }),
+  createProviderHandler
+);
+providerRoutes.put(
+  "/:id",
+  authenticate({
+    user: [],
+    token: [],
+  }),
+  updateProviderHandler
+);
+providerRoutes.delete(
+  "/:id",
+  authenticate({
+    user: [],
+    token: [],
+  }),
+  deleteProviderHandler
+);
 
 export default providerRoutes;
