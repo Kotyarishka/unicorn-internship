@@ -9,6 +9,7 @@ import {
 import asyncHandler from "src/utils/asyncHandler";
 import {
   createProviderSchema,
+  editProviderSchema,
   providerFiltersSchema,
 } from "./provider.schemas";
 
@@ -18,9 +19,10 @@ export const getProvidersHandler = asyncHandler(async (req, res) => {
   const filters = providerFiltersSchema.parse(req.query.filters);
   const providers = await getProviders(filters);
 
-  return res
-    .status(HttpStatusCode.OK)
-    .json({ providers, count: providers.length });
+  return res.status(HttpStatusCode.OK).json({
+    providers: providers.map((provider) => provider.toObject()),
+    count: providers.length,
+  });
 });
 
 export const getProviderHandler = asyncHandler(async (req, res) => {
@@ -28,7 +30,7 @@ export const getProviderHandler = asyncHandler(async (req, res) => {
 
   const provider = await getProvider(id);
 
-  return res.status(HttpStatusCode.OK).json({ provider });
+  return res.status(HttpStatusCode.OK).json({ provider: provider.toObject() });
 });
 
 export const createProviderHandler = asyncHandler(async (req, res) => {
@@ -36,20 +38,29 @@ export const createProviderHandler = asyncHandler(async (req, res) => {
 
   const provider = await createProvider(data);
 
+  const providers = await getProviders();
+  console.log(providers);
+
   return res
     .status(HttpStatusCode.CREATED)
-    .json({ provider, message: "Provider created successfully" });
+    .json({
+      provider: provider.toObject(),
+      message: "Provider created successfully",
+    });
 });
 
 export const updateProviderHandler = asyncHandler(async (req, res) => {
   const id = z.string().parse(req.params.id);
-  const data = createProviderSchema.parse(req.body);
+  const data = editProviderSchema.parse(req.body);
 
   const provider = await updateProvider(id, data);
 
   return res
     .status(HttpStatusCode.OK)
-    .json({ provider, message: "Provider updated successfully" });
+    .json({
+      provider: provider.toObject(),
+      message: "Provider updated successfully",
+    });
 });
 
 export const deleteProviderHandler = asyncHandler(async (req, res) => {

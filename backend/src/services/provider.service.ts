@@ -1,5 +1,6 @@
 import {
   CreateProviderParams,
+  EditProviderParams,
   ProviderFilters,
 } from "src/controllers/provider.schemas";
 import { ProviderDocument, ProviderModel } from "src/models/provider.model";
@@ -81,10 +82,7 @@ export const createProvider = async (data: CreateProviderParams) => {
   return provider;
 };
 
-export const updateProvider = async (
-  id: string,
-  data: CreateProviderParams
-) => {
+export const updateProvider = async (id: string, data: EditProviderParams) => {
   const provider = await ProviderModel.findByIdAndUpdate(id, data, {
     new: true,
   });
