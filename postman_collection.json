@@ -1,0 +1,368 @@
+{
+  "info": {
+    "_postman_id": "47722256-b435-4040-a187-efe5237007d1",
+    "name": "Unicorn Internship",
+    "description": "Auth endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42858177"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test4@test.com\",\n    \"password\": \"123123\",\n    \"confirmPassword\": \"123123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@test.com\",\n    \"password\": \"123123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "refresh",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/refresh",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "refresh"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains all authentication related endpoints."
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/user",
+              "host": ["{{base_url}}"],
+              "path": ["user"],
+              "query": [
+                {
+                  "key": "magic",
+                  "value": "magic",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains all user related endpoints."
+    },
+    {
+      "name": "session",
+      "item": [
+        {
+          "name": "sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/sessions",
+              "host": ["{{base_url}}"],
+              "path": ["sessions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "sessions/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/sessions/:id",
+              "host": ["{{base_url}}"],
+              "path": ["sessions", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "67c8aa4bd168a45044e33ba2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Contains all session related endpoints."
+    },
+    {
+      "name": "provider",
+      "item": [
+        {
+          "name": "providers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "0605287f-6910-4f0b-a95f-ffd6daca1ec2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/providers",
+              "host": ["{{base_url}}"],
+              "path": ["providers"],
+              "query": [
+                {
+                  "key": "filters[country]",
+                  "value": "USA",
+                  "disabled": true
+                },
+                {
+                  "key": "filters[marketShare][from]",
+                  "value": "15",
+                  "disabled": true
+                },
+                {
+                  "key": "filters[marketShare][to]",
+                  "value": "10",
+                  "disabled": true
+                },
+                {
+                  "key": "filters[name]",
+                  "value": "en",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "provider",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/providers/:id",
+              "host": ["{{base_url}}"],
+              "path": ["providers", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "67c8bf22811cc06c3b56dd82"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create provider",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Test2\",\r\n    \"country\": \"United Kingdom\",\r\n    \"marketShare\": 73,\r\n    \"renewableEnergyPercentage\": 63,\r\n    \"yearlyRevenue\": 12000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/providers",
+              "host": ["{{base_url}}"],
+              "path": ["providers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update provider",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Energy (Un)Limited.\",\r\n    \"country\": \"USA\",\r\n    \"marketShare\": 53,\r\n    \"renewableEnergyPercentage\": 23,\r\n    \"yearlyRevenue\": 580000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/providers/:id",
+              "host": ["{{base_url}}"],
+              "path": ["providers", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "67c8bf07811cc06c3b56dd80"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete provider",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/providers/:id",
+              "host": ["{{base_url}}"],
+              "path": ["providers", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "67c8d2fd3ba714c820e70c1c"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "tokens",
+      "item": [
+        {
+          "name": "create token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"expiresIn\": 5,\r\n    \"description\": \"test token\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/tokens",
+              "host": ["{{base_url}}"],
+              "path": ["tokens"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "tokens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/tokens",
+              "host": ["{{base_url}}"],
+              "path": ["tokens"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:4004",
+      "type": "string"
+    }
+  ]
+}
