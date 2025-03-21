@@ -19,6 +19,8 @@ servers:
       port:
         default: "3000"
         description: "The port number of the server"
+  - url: "https://dw0480cw0oosksco8swgsggo.multiverse-project.com"
+    description: "The preview (production) server"
 
 paths:
   /providers:
