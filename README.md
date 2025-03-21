@@ -2,6 +2,16 @@
 
 Unicorn Internship.
 
+## Check out the app
+
+There is a live version of the app hosted on my domain. You can check it out [here](https://unicorn-internship.multiverse-project.com/).
+
+> [!NOTE]
+> You can use the following credentials to login to the app:
+>
+> - Email: `test@test.com`
+> - Password: `123123`
+
 ## Setting Up
 
 ### Local Development
