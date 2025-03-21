@@ -2,12 +2,12 @@ import {
   CreateProviderParams,
   EditProviderParams,
   ProviderFilters,
-} from "src/controllers/provider.schemas";
-import { ProviderDocument, ProviderModel } from "src/models/provider.model";
+} from "../controllers/provider.schemas";
+import { ProviderDocument, ProviderModel } from "../models/provider.model";
 
 import { FilterQuery } from "mongoose";
-import appAssert from "src/utils/appAssert";
-import HttpStatusCode from "src/constans/http";
+import appAssert from "../utils/appAssert";
+import HttpStatusCode from "../constans/http";
 
 const generateFilters = (filters: ProviderFilters) => {
   const filterQuery: FilterQuery<ProviderDocument> = {};

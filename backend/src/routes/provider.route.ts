@@ -5,8 +5,8 @@ import {
   getProviderHandler,
   updateProviderHandler,
   deleteProviderHandler,
-} from "src/controllers/provider.controller";
-import authenticate from "src/middleware/authenticate";
+} from "../controllers/provider.controller";
+import authenticate from "../middleware/authenticate";
 
 // prefix: /providers
 const providerRoutes = Router();

@@ -7,10 +7,10 @@ import {
   ScopeConfig,
   tokenScopeHandlers,
   userScopeHandlers,
-} from "src/utils/scopes";
-import asyncHandler from "src/utils/asyncHandler";
-import { getUser } from "src/services/auth.service";
-import { TokenModel } from "src/models/token.model";
+} from "../utils/scopes";
+import asyncHandler from "../utils/asyncHandler";
+import { getUser } from "../services/auth.service";
+import { TokenModel } from "../models/token.model";
 
 const authenticate = (scopes?: ScopeConfig) =>
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {

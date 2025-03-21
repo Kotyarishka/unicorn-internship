@@ -1,8 +1,8 @@
 import { Request } from "express";
-import { TokenDocument } from "src/models/token.model";
-import { UserDocument, UserModel } from "src/models/user.model";
+import { TokenDocument } from "../models/token.model";
+import { UserDocument, UserModel } from "../models/user.model";
 import appAssert from "./appAssert";
-import HttpStatusCode from "src/constans/http";
+import HttpStatusCode from "../constans/http";
 
 type UserPayload = {
   user: Omit<UserDocument, "password">;

@@ -11,6 +11,7 @@ const DashboardCharts: FC = () => {
   });
 
   if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>{error?.message || "An error occurred"}</div>;
 
   return (
     <div className="grid grid-cols-2 gap-4">

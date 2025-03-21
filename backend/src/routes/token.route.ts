@@ -3,7 +3,7 @@ import {
   createTokenHandler,
   deleteTokenHandler,
   getTokensHandler,
-} from "src/controllers/token.controller";
+} from "../controllers/token.controller";
 
 // prefix: /tokens
 const tokenRoutes = Router();

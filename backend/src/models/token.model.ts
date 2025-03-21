@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { daysFromNow } from "src/utils/date";
+import { daysFromNow } from "../utils/date";
 
 export interface TokenDocument
   extends mongoose.Document<mongoose.Types.ObjectId> {

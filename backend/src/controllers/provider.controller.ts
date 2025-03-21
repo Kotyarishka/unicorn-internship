@@ -1,12 +1,12 @@
-import HttpStatusCode from "src/constans/http";
+import HttpStatusCode from "../constans/http";
 import {
   createProvider,
   getProviders,
   getProvider,
   updateProvider,
   deleteProvider,
-} from "src/services/provider.service";
-import asyncHandler from "src/utils/asyncHandler";
+} from "../services/provider.service";
+import asyncHandler from "../utils/asyncHandler";
 import {
   createProviderSchema,
   editProviderSchema,
@@ -41,12 +41,10 @@ export const createProviderHandler = asyncHandler(async (req, res) => {
   const providers = await getProviders();
   console.log(providers);
 
-  return res
-    .status(HttpStatusCode.CREATED)
-    .json({
-      provider: provider.toObject(),
-      message: "Provider created successfully",
-    });
+  return res.status(HttpStatusCode.CREATED).json({
+    provider: provider.toObject(),
+    message: "Provider created successfully",
+  });
 });
 
 export const updateProviderHandler = asyncHandler(async (req, res) => {
@@ -55,12 +53,10 @@ export const updateProviderHandler = asyncHandler(async (req, res) => {
 
   const provider = await updateProvider(id, data);
 
-  return res
-    .status(HttpStatusCode.OK)
-    .json({
-      provider: provider.toObject(),
-      message: "Provider updated successfully",
-    });
+  return res.status(HttpStatusCode.OK).json({
+    provider: provider.toObject(),
+    message: "Provider updated successfully",
+  });
 });
 
 export const deleteProviderHandler = asyncHandler(async (req, res) => {
