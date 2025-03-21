@@ -1,0 +1,279 @@
+openapi: 3.0.0
+info:
+  title: "WattWise API"
+  version: "1.0.0"
+  description: |
+    This is the API for WattWise, a platform that helps you find the best electricity provider for your needs.
+    You can find the best provider for you by filtering the providers by name, country, market share, percentage of renewable energy in the provider's energy mix and yearly revenue.
+    You can also create, update and delete providers.
+
+    This API documentation shows you how to use the API to get, create, update and delete providers.
+    Other endpoints are not documented, since they are not meant to be used by the API token, and designed to work only for authenticated users on the frontend.
+
+    To expolore full API, you can refer to Postman collection.
+
+servers:
+  - url: "http://localhost:{port}"
+    description: "Your local develompent server, change the port to the one you are using"
+    variables:
+      port:
+        default: "3000"
+        description: "The port number of the server"
+
+paths:
+  /providers:
+    get:
+      tags:
+        - "providers"
+      summary: "Get all providers"
+      parameters:
+        - name: filters[name]
+          in: query
+          description: "The name of the provider"
+          schema:
+            type: string
+        - name: filters[country]
+          in: query
+          description: "The country of the provider"
+          schema:
+            type: string
+            example: USA
+        - name: filters[marketShare][from]
+          in: query
+          description: "Minimum market share in percentage of the provider"
+          schema:
+            type: string
+            example: '15'
+        - name: filters[marketShare][to]
+          in: query
+          description: "Maximum market share in percentage of the provider"
+          schema:
+            type: string
+            example: '35'
+        - name: filters[renewableEnergyPercentage][from]
+          in: query
+          description: "Minimum percentage of renewable energy in the provider's energy mix"
+          schema:
+            type: string
+            example: '15'
+        - name: filters[renewableEnergyPercentage][to]
+          in: query
+          description: "Maximum percentage of renewable energy in the provider's energy mix"
+          schema:
+            type: string
+            example: '35'
+        - name: filters[yearlyRevenue][from]
+          in: query
+          description: "Minimum yearly revenue in dollars"
+          schema:
+            type: string
+            example: '15'
+        - name: filters[yearlyRevenue][to]
+          in: query
+          description: "Maximum yearly revenue in dollars"
+          schema:
+            type: string
+            example: '35'
+        
+      responses:
+        '200':
+          description: "A list of providers"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  providers:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Provider"
+                  count:
+                    type: number
+                    format: int32
+                    description: "The number of providers"
+    post:
+      tags:
+        - "providers"
+      summary: "Create a new provider"
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                country:
+                  type: string
+                marketShare:
+                  type: number
+                  description: "Market share in percentage of the provider"
+                  format: int32
+                renewableEnergyPercentage:
+                  type: number
+                  description: "Percentage of renewable energy in the provider's energy mix"
+                  format: int32
+                yearlyRevenue:
+                  type: number
+                  description: "Yearly revenue in dollars"
+      responses:
+        '201':
+          description: "The provider was created"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider:
+                    $ref: "#/components/schemas/Provider"
+                  message:
+                    type: string
+                    description: "The message"
+  /providers/{id}:
+    get:
+      tags:
+        - "providers"
+      summary: "Get a provider by ID"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the provider"
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: "The provider"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider:
+                    $ref: "#/components/schemas/Provider"
+    put:
+      tags:
+        - "providers"
+      summary: "Update a provider by ID"
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the provider"
+          schema:
+            type: string
+            format: ObjectId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                country:
+                  type: string
+                marketShare:
+                  type: number
+                  description: "Market share in percentage of the provider"
+                  format: int32
+                renewableEnergyPercentage:
+                  type: number
+                  description: "Percentage of renewable energy in the provider's energy mix"
+                  format: int32
+                yearlyRevenue:
+                  type: number
+                  description: "Yearly revenue in dollars"
+      responses:
+        '200':
+          description: "The provider was updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  provider:
+                    $ref: "#/components/schemas/Provider"
+                  message:
+                    type: string
+                    description: "The message"
+    delete:
+      tags:
+        - "providers"
+      summary: "Delete a provider by ID"
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "The ID of the provider"
+          schema:
+            type: string
+            format: ObjectId
+      responses:
+        '200':
+          description: "The provider was deleted"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: "The message"
+
+tags:
+  - name: "providers"
+    description: "Operations about electricity providers"
+
+components:
+  schemas:
+    Provider:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: ObjectId
+        name:
+          type: string
+        country:
+          type: string
+        marketShare:
+          type: number
+          description: "Market share in percentage of the provider"
+          format: int32
+        renewableEnergyPercentage:
+          type: number
+          description: "Percentage of renewable energy in the provider's energy mix"
+          format: int32
+        yearlyRevenue:
+          type: number
+          description: "Yearly revenue in dollars"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      description: "Authorization header using the Bearer scheme. Example: 'Bearer {token}'. You can get an API token in dashboard."
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    cookieAuth:
+      description: "Authorization cookie that will be set, once you login. Normaly this access token will last only for 15 minutes."
+      name: "accessToken"
+      type: apiKey
+      in: cookie
