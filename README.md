@@ -17,6 +17,8 @@ There is a live version of the app hosted on my domain. You can check it out [he
 This is my submission for the Unicorn Internship. The app is a simple CRUD application that allows user to view list of electricity providers.
 This app is complete with its own dashboard and user authentication system. The app is built using the MERN stack.
 
+Documentation for the app can be found [here](https://kotyarishka.github.io/unicorn-internship/).
+
 ## Tech Stack
 
 The app is built using the classic MERN stack, which is:
