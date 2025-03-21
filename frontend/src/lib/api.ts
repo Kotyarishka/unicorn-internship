@@ -6,6 +6,7 @@ import { TokenInput } from "@/validators/token";
 export const login = async (data: LoginInput) => api.post("/auth/login", data);
 export const register = async (data: RegisterInput) =>
   api.post("/auth/register", data);
+export const logout = async () => api.get("/auth/logout");
 
 export type User = {
   _id: string;

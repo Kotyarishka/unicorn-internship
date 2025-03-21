@@ -1,3 +1,4 @@
+import DashboardUserMenu from "@/components/dashboardUserMenu";
 import { buttonVariants } from "@/components/ui/button";
 import { HomeIcon, KeyRoundIcon, ZapIcon } from "lucide-react";
 import { FC } from "react";
@@ -54,6 +55,9 @@ const DashboardLayout: FC = () => {
                 <link.Icon /> {link.name}
               </Link>
             ))}
+          </div>
+          <div className=" mt-auto">
+            <DashboardUserMenu />
           </div>
         </aside>
         <div className="flex-1 bg-secondary-background p-4">
