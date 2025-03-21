@@ -12,6 +12,20 @@ There is a live version of the app hosted on my domain. You can check it out [he
 > - Email: `test@test.com`
 > - Password: `123123`
 
+## Description
+
+This is my submission for the Unicorn Internship. The app is a simple CRUD application that allows user to view list of electricity providers.
+This app is complete with its own dashboard and user authentication system. The app is built using the MERN stack.
+
+## Tech Stack
+
+The app is built using the classic MERN stack, which is:
+
+- MongoDB
+- Express
+- React
+- Node
+
 ## Setting Up
 
 ### Local Development
