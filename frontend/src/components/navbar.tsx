@@ -30,7 +30,7 @@ const NavBar: FC = () => {
     <header className="sticky top-5 z-50">
       <div
         className={cn(
-          "flex items-center justify-between p-4 max-w-[1300px] mx-auto w-full border border-accent mt-5 rounded-lg transition-all",
+          "flex items-center justify-between p-4 max-w-[1300px] mx-auto w-full border border-accent rounded-lg transition-all",
           {
             "max-w-[1350px] backdrop-blur-md p-2 px-4": scrolled,
           }

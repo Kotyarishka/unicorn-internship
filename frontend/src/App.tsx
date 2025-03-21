@@ -14,6 +14,8 @@ import DashboardAddProvider from "./routes/dashboard/providers/add";
 import DashboardEditProvider from "./routes/dashboard/providers/edit";
 import DashboardApiIndex from "./routes/dashboard/api";
 import DashboardAddApi from "./routes/dashboard/api/add";
+import ViewProvider from "./routes/providers/view";
+import AppLayout from "./routes/appLayout";
 
 function App() {
   const navigate = useNavigate();
@@ -21,7 +23,13 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route element={<AppLayout />}>
+        <Route index element={<HomePage />} />
+
+        <Route path="providers">
+          <Route path=":id" element={<ViewProvider />} />
+        </Route>
+      </Route>
 
       <Route element={<WithAuth />}>
         <Route path="dashboard" element={<DashboardLayout />}>
