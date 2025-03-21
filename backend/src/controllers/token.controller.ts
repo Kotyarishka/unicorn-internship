@@ -1,4 +1,4 @@
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 import { TokenModel } from "../models/token.model";
 import { UserModel } from "../models/user.model";
 import appAssert from "../utils/appAssert";

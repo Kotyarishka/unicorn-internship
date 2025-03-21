@@ -4,7 +4,7 @@ import type {
   Request,
   Response,
 } from "express";
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 import { ZodError } from "zod";
 import AppError from "../utils/appError";
 import { clearAuthCookies, refreshPath } from "../utils/cookies";

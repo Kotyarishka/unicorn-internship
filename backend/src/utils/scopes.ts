@@ -2,7 +2,7 @@ import { Request } from "express";
 import { TokenDocument } from "../models/token.model";
 import { UserDocument, UserModel } from "../models/user.model";
 import appAssert from "./appAssert";
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 
 type UserPayload = {
   user: Omit<UserDocument, "password">;

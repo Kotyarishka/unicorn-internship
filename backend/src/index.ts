@@ -1,7 +1,7 @@
 import express, { json, urlencoded } from "express";
 import cors from "cors";
 
-import { env } from "./constans/env";
+import { env } from "./constants/env";
 import connectToDb from "./config/db";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middleware/errorHandler";

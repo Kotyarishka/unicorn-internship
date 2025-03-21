@@ -1,10 +1,10 @@
-import { env } from "../constans/env";
+import { env } from "../constants/env";
 import { SessionModel } from "../models/session.model";
 import { UserDocument, UserModel } from "../models/user.model";
 
 import jwt from "jsonwebtoken";
 import appAssert from "../utils/appAssert";
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 import {
   refreshTokenDefaults,
   type RefreshTokenPayload,

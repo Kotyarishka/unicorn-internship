@@ -1,4 +1,4 @@
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 import { UserModel } from "../models/user.model";
 import appAssert from "../utils/appAssert";
 import asyncHandler from "../utils/asyncHandler";

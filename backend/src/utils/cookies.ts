@@ -1,5 +1,5 @@
 import type { CookieOptions, Response } from "express";
-import { env } from "../constans/env";
+import { env } from "../constants/env";
 import { daysFromNow, minutesFromNow } from "./date";
 
 const defaults: CookieOptions = {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 import { SessionModel } from "../models/session.model";
 import asyncHandler from "../utils/asyncHandler";
 import appAssert from "../utils/appAssert";

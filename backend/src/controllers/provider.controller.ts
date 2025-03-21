@@ -1,4 +1,4 @@
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 import {
   createProvider,
   getProviders,

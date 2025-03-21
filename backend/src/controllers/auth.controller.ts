@@ -11,7 +11,7 @@ import {
   getRefreshTokenCookieOptions,
   setAuthCookies,
 } from "../utils/cookies";
-import HttpStatusCode from "../constans/http";
+import HttpStatusCode from "../constants/http";
 
 import { loginSchema, registerSchema } from "./auth.schemas";
 import { verifyToken } from "../utils/jwt";

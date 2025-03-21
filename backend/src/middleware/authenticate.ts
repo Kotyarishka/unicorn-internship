@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import appAssert from "../utils/appAssert";
-import HttpStatusCode from "../constans/http";
-import AppErrorCode from "../constans/appErrorCode";
+import HttpStatusCode from "../constants/http";
+import AppErrorCode from "../constants/appErrorCode";
 import { verifyToken } from "../utils/jwt";
 import {
   ScopeConfig,

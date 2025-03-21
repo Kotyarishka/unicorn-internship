@@ -10,7 +10,7 @@ info:
     This API documentation shows you how to use the API to get, create, update and delete providers.
     Other endpoints are not documented, since they are not meant to be used by the API token, and designed to work only for authenticated users on the frontend.
 
-    To expolore full API, you can refer to [Postman collection](https://github.com/Kotyarishka/unicorn-internship/blob/main/postman_collection.json).
+    To explore full API, you can refer to [Postman collection](https://github.com/Kotyarishka/unicorn-internship/blob/main/postman_collection.json).
 
 servers:
   - url: "http://localhost:{port}"
